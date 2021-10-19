@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
-
+import api from "./api";
+import { useState } from 'react';
+import './styles/global.css';
 function App() {
+  const [valor, setValor] = useState([]);
+
+  async function handleDate(){
+    const response = await api.get('');
+    console.log(response.data.data)
+    setValor(response.data.data);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className='container'>
+        <h2>Listando dados</h2>
+      <div className="box">
+        {valor.map((val) => (
+          <table key={val.id}>
+            <tr>
+              <td>{val.name}</td>
+            </tr>
+            
+          </table>
+          
+        ))}
+      </div>
+      <button onClick={handleDate}>dale</button>
+      </div>
+    
+    </>
   );
 }
 
